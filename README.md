@@ -1,1 +1,6 @@
-# tetris_AI
+build
+out
+.cache
+.idea
+.vs
+.vscode
