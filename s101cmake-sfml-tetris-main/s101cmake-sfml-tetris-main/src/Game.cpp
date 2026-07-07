@@ -405,6 +405,8 @@ void Game::gameDraw()
     DrawResults();
 
     window.display();				//把显示缓冲区的内容，显示在屏幕上。SFML采用的是双缓冲机制
+    // 只测玩家1的当前方块，放在 (5, 5) 位置，不旋转
+std::cout << "PD Score: " << player1.evaluatePD(player1.currentShapeNum, 0, 5, 5) << std::endl;
 }
 
 void Game::gameRun()

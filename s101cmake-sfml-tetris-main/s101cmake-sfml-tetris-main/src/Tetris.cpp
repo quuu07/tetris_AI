@@ -1,4 +1,7 @@
 #include "Tetris.h"
+//pd
+#include <cstring>
+//pd
 #define DELAYVALUE 0.5
 
 Tetris::Tetris()
@@ -431,6 +434,167 @@ void Tetris::rotateFunc()
         }
     }
 }
+
+//pd
+void Tetris::getRotatedCoords(int shapeNum, int rotState, int posX, int posY, Vector2i outCoords[4]) {
+    // 从 Figures 数组取出基础坐标（2x2 网格内的相对坐标）
+    Vector2i base[4];
+    for (int i = 0; i < 4; i++) {
+        base[i].x = Figures[shapeNum][i] % 2;
+        base[i].y = Figures[shapeNum][i] / 2;
+    }
+
+    // 顺时针旋转 rotState 次（每次 90 度）
+    for (int r = 0; r < rotState; r++) {
+        for (int i = 0; i < 4; i++) {
+            int newX = 1 - base[i].y;
+            int newY = base[i].x;
+            base[i].x = newX;
+            base[i].y = newY;
+        }
+    }
+
+    // 加上偏移量
+    for (int i = 0; i < 4; i++) {
+        outCoords[i].x = base[i].x + posX;
+        outCoords[i].y = base[i].y + posY;
+    }
+}
+
+int Tetris::calcLandingHeight(int shapeNum, int rotState, int posX, int posY) {
+    // 从 posY 开始，不断下移直到碰撞
+    int y = posY;
+    while (true) {
+        // 临时构造下移一格的坐标
+        Vector2i coords[4];
+        getRotatedCoords(shapeNum, rotState, posX, y + 1, coords);
+        bool canMove = true;
+        for (int i = 0; i < 4; i++) {
+            int cx = coords[i].x;
+            int cy = coords[i].y;
+            if (cx < 0 || cx >= FIELD_WIDTH || cy >= FIELD_HEIGHT) { canMove = false; break; }
+            if (cy >= 0 && Field[cy][cx] != 0) { canMove = false; break; }
+        }
+        if (!canMove) break;
+        y++;
+    }
+    // 返回落地后的最高行数（取四个方块中最大的 y）
+    Vector2i finalCoords[4];
+    getRotatedCoords(shapeNum, rotState, posX, y, finalCoords);
+    int maxY = 0;
+    for (int i = 0; i < 4; i++) {
+        if (finalCoords[i].y > maxY) maxY = finalCoords[i].y;
+    }
+    return maxY;
+}
+
+int Tetris::calcRowTransitions() {
+    int count = 0;
+    for (int i = 0; i < FIELD_HEIGHT; i++) {
+        for (int j = -1; j < FIELD_WIDTH; j++) {
+            int left = (j < 0) ? 0 : (Field[i][j] > 0 ? 1 : 0);
+            int right = (j + 1 >= FIELD_WIDTH) ? 0 : (Field[i][j + 1] > 0 ? 1 : 0);
+            if (left != right) count++;
+        }
+    }
+    return count;
+}
+
+int Tetris::calcColTransitions() {
+    int count = 0;
+    for (int j = 0; j < FIELD_WIDTH; j++) {
+        for (int i = -1; i < FIELD_HEIGHT; i++) {
+            int up = (i < 0) ? 0 : (Field[i][j] > 0 ? 1 : 0);
+            int down = (i + 1 >= FIELD_HEIGHT) ? 0 : (Field[i + 1][j] > 0 ? 1 : 0);
+            if (up != down) count++;
+        }
+    }
+    return count;
+}
+
+int Tetris::calcHoles() {
+    int count = 0;
+    for (int j = 0; j < FIELD_WIDTH; j++) {
+        bool blockAbove = false;
+        for (int i = 0; i < FIELD_HEIGHT; i++) {
+            if (Field[i][j] > 0)
+                blockAbove = true;
+            else if (blockAbove)
+                count++;
+        }
+    }
+    return count;
+}
+
+int Tetris::calcWellSums() {
+    int sum = 0;
+    for (int j = 0; j < FIELD_WIDTH; j++) {
+        int depth = 0;
+        for (int i = FIELD_HEIGHT - 1; i >= 0; i--) {
+            if (Field[i][j] == 0) depth++;
+            else break;
+        }
+        bool leftBlock = (j == 0) || (Field[FIELD_HEIGHT - 1][j - 1] > 0);
+        bool rightBlock = (j == FIELD_WIDTH - 1) || (Field[FIELD_HEIGHT - 1][j + 1] > 0);
+        if (leftBlock && rightBlock && depth > 0) {
+            sum += depth;
+        }
+    }
+    return sum;
+}
+
+int Tetris::calcRowsEliminated() {
+    int count = 0;
+    for (int i = 0; i < FIELD_HEIGHT; i++) {
+        bool full = true;
+        for (int j = 0; j < FIELD_WIDTH; j++) {
+            if (Field[i][j] == 0) { full = false; break; }
+        }
+        if (full) count++;
+    }
+    return count;
+}
+
+float Tetris::evaluatePD(int shapeNum, int rotState, int posX, int posY) {
+    // 1. 备份整个场地
+    int backupField[FIELD_HEIGHT][FIELD_WIDTH];
+    memcpy(backupField, Field, sizeof(Field));
+
+    // 2. 临时放置方块（用颜色 1 占位即可）
+    Vector2i coords[4];
+    getRotatedCoords(shapeNum, rotState, posX, posY, coords);
+    for (int i = 0; i < 4; i++) {
+        int x = coords[i].x;
+        int y = coords[i].y;
+        if (y >= 0 && y < FIELD_HEIGHT && x >= 0 && x < FIELD_WIDTH) {
+            Field[y][x] = 1;  // 只要非0就行，不影响计数
+        }
+    }
+
+    // 3. 计算所有特征
+    int landingHeight = calcLandingHeight(shapeNum, rotState, posX, posY);
+    int rowsEliminated = calcRowsEliminated();
+    int rowTrans = calcRowTransitions();
+    int colTrans = calcColTransitions();
+    int holes = calcHoles();
+    int wellSums = calcWellSums();
+
+    // 4. 恢复场地
+    memcpy(Field, backupField, sizeof(Field));
+
+    // 5. 套用 Pierre Dellacherie 的经典权重
+    float score = 
+        -4.500158f * landingHeight +
+         3.418126f * rowsEliminated +
+        -3.217888f * rowTrans +
+        -9.348695f * colTrans +
+        -7.899265f * holes +
+        -3.385597f * wellSums;
+
+    return score;
+}
+//pd
+
 void Tetris::holdFunc()
 {
     Vector2i backUpSquare[4];

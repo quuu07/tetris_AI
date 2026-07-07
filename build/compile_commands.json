@@ -1,0 +1,20 @@
+[
+{
+  "directory": "D:/sfmlgame/tetris_AI/build",
+  "command": "D:\\practice\\vscode\\mingw64\\bin\\g++.exe -DSFML_STATIC @CMakeFiles/GameLib.dir/includes_CXX.rsp -g -o CMakeFiles\\GameLib.dir\\src\\Game.cpp.obj -c D:\\sfmlgame\\tetris_AI\\s101cmake-sfml-tetris-main\\s101cmake-sfml-tetris-main\\src\\Game.cpp",
+  "file": "D:/sfmlgame/tetris_AI/s101cmake-sfml-tetris-main/s101cmake-sfml-tetris-main/src/Game.cpp",
+  "output": "CMakeFiles/GameLib.dir/src/Game.cpp.obj"
+},
+{
+  "directory": "D:/sfmlgame/tetris_AI/build",
+  "command": "D:\\practice\\vscode\\mingw64\\bin\\g++.exe -DSFML_STATIC @CMakeFiles/GameLib.dir/includes_CXX.rsp -g -o CMakeFiles\\GameLib.dir\\src\\Tetris.cpp.obj -c D:\\sfmlgame\\tetris_AI\\s101cmake-sfml-tetris-main\\s101cmake-sfml-tetris-main\\src\\Tetris.cpp",
+  "file": "D:/sfmlgame/tetris_AI/s101cmake-sfml-tetris-main/s101cmake-sfml-tetris-main/src/Tetris.cpp",
+  "output": "CMakeFiles/GameLib.dir/src/Tetris.cpp.obj"
+},
+{
+  "directory": "D:/sfmlgame/tetris_AI/build",
+  "command": "D:\\practice\\vscode\\mingw64\\bin\\g++.exe -DSFML_STATIC @CMakeFiles/main.dir/includes_CXX.rsp -g -o CMakeFiles\\main.dir\\src\\main.cpp.obj -c D:\\sfmlgame\\tetris_AI\\s101cmake-sfml-tetris-main\\s101cmake-sfml-tetris-main\\src\\main.cpp",
+  "file": "D:/sfmlgame/tetris_AI/s101cmake-sfml-tetris-main/s101cmake-sfml-tetris-main/src/main.cpp",
+  "output": "CMakeFiles/main.dir/src/main.cpp.obj"
+}
+]

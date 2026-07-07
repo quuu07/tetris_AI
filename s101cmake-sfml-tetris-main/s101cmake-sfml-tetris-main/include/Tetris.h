@@ -57,8 +57,8 @@ enum gridShape {
 
 using namespace sf;			//SFML中的每个类都位于该命名空间之下，不设定sf命名空间的话，相应的函数前需要用作用域解析符，例如 sf::VideoMode(width* GRIDSIZE, height* GRIDSIZE)
 
-static int holdcolorNum, holdShapeNum;
-static Vector2i holdSquare[4];
+//static int holdcolorNum, holdShapeNum;
+//static Vector2i holdSquare[4];
 
 class Tetris
 {
@@ -118,6 +118,21 @@ public:
 	void newShapeFunc();
 	void animationFunc(int i);
 	void isWin();
+//pd
+	float evaluatePD(int shapeNum, int rotState, int posX, int posY);
+
+    // 下面的 5 个是辅助特征计算（只读场地，不改任何东西）
+    int calcLandingHeight(int shapeNum, int rotState, int posX, int posY);
+    int calcRowTransitions();
+    int calcColTransitions();
+    int calcHoles();
+    int calcWellSums();
+    int calcRowsEliminated();  // 满行数
+private:
+    int holdcolorNum, holdShapeNum;
+    Vector2i holdSquare[4];
+    void getRotatedCoords(int shapeNum, int rotState, int posX, int posY, Vector2i outCoords[4]);
+//pd
 };
 
 
