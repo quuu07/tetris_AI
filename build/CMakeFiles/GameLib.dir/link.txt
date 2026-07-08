@@ -1,2 +1,2 @@
-D:\practice\vscode\mingw64\bin\ar.exe qc libGameLib.a CMakeFiles/GameLib.dir/src/Game.cpp.obj CMakeFiles/GameLib.dir/src/Tetris.cpp.obj CMakeFiles/GameLib.dir/src/GeneticAlgorithm.cpp.obj
-D:\practice\vscode\mingw64\bin\ranlib.exe libGameLib.a
+D:\Users\winlibs-x86_64-posix-seh-gcc-14.2.0-mingw-w64ucrt-12.0.0-r2\mingw64\bin\ar.exe qc libGameLib.a CMakeFiles/GameLib.dir/src/Game.cpp.obj CMakeFiles/GameLib.dir/src/Tetris.cpp.obj CMakeFiles/GameLib.dir/src/GeneticAlgorithm.cpp.obj
+D:\Users\winlibs-x86_64-posix-seh-gcc-14.2.0-mingw-w64ucrt-12.0.0-r2\mingw64\bin\ranlib.exe libGameLib.a

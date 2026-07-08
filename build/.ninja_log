@@ -1,0 +1,7 @@
+# ninja log v6
+36	1377	8051987094202051	CMakeFiles/main.dir/src/main.cpp.obj	25737fd6e4240bdb
+20	1589	8051987094044332	CMakeFiles/GameLib.dir/src/Tetris.cpp.obj	2169456dfb5aa818
+29	1911	8051987094131531	CMakeFiles/GameLib.dir/src/GeneticAlgorithm.cpp.obj	f9c374bff5c3476c
+14	2035	8051987093980241	CMakeFiles/GameLib.dir/src/Game.cpp.obj	b805a72fa5bb3d01
+2035	2256	8051987114183108	libGameLib.a	d36cd20c0110ee88
+2256	3520	8051987116394700	bin/main.exe	350b4f1a12ce6f2b

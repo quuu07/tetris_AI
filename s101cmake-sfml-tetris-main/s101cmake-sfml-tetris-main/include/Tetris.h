@@ -90,6 +90,7 @@ public:
 	int dx, score;
 	bool isRotate, isHold, isHardDrop, newShapeFlag, animationFlag;
 	bool isGameOver;
+	bool aiEnabled;
 	int animationRow[4];
 	float animationCtrlValue;
 	int currentColorNum, nextcolorNum, tempcolorNum;// holdcolorNum

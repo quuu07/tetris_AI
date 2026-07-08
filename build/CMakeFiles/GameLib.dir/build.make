@@ -43,19 +43,19 @@ cmake_force:
 SHELL = cmd.exe
 
 # The CMake executable.
-CMAKE_COMMAND = D:\practice\vscode\mingw64\bin\cmake.exe
+CMAKE_COMMAND = D:\Users\winlibs-x86_64-posix-seh-gcc-14.2.0-mingw-w64ucrt-12.0.0-r2\mingw64\bin\cmake.exe
 
 # The command to remove a file.
-RM = D:\practice\vscode\mingw64\bin\cmake.exe -E rm -f
+RM = D:\Users\winlibs-x86_64-posix-seh-gcc-14.2.0-mingw-w64ucrt-12.0.0-r2\mingw64\bin\cmake.exe -E rm -f
 
 # Escaping for special characters.
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = D:\sfmlgame\tetris_AI\s101cmake-sfml-tetris-main\s101cmake-sfml-tetris-main
+CMAKE_SOURCE_DIR = D:\Users\download\tetris_AI\s101cmake-sfml-tetris-main\s101cmake-sfml-tetris-main
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = D:\sfmlgame\tetris_AI\build
+CMAKE_BINARY_DIR = D:\Users\download\tetris_AI\build
 
 # Include any dependencies generated for this target.
 include CMakeFiles/GameLib.dir/depend.make
@@ -70,48 +70,48 @@ include CMakeFiles/GameLib.dir/flags.make
 
 CMakeFiles/GameLib.dir/src/Game.cpp.obj: CMakeFiles/GameLib.dir/flags.make
 CMakeFiles/GameLib.dir/src/Game.cpp.obj: CMakeFiles/GameLib.dir/includes_CXX.rsp
-CMakeFiles/GameLib.dir/src/Game.cpp.obj: D:/sfmlgame/tetris_AI/s101cmake-sfml-tetris-main/s101cmake-sfml-tetris-main/src/Game.cpp
+CMakeFiles/GameLib.dir/src/Game.cpp.obj: D:/Users/download/tetris_AI/s101cmake-sfml-tetris-main/s101cmake-sfml-tetris-main/src/Game.cpp
 CMakeFiles/GameLib.dir/src/Game.cpp.obj: CMakeFiles/GameLib.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=D:\sfmlgame\tetris_AI\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/GameLib.dir/src/Game.cpp.obj"
-	D:\practice\vscode\mingw64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/GameLib.dir/src/Game.cpp.obj -MF CMakeFiles\GameLib.dir\src\Game.cpp.obj.d -o CMakeFiles\GameLib.dir\src\Game.cpp.obj -c D:\sfmlgame\tetris_AI\s101cmake-sfml-tetris-main\s101cmake-sfml-tetris-main\src\Game.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=D:\Users\download\tetris_AI\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/GameLib.dir/src/Game.cpp.obj"
+	D:\Users\winlibs-x86_64-posix-seh-gcc-14.2.0-mingw-w64ucrt-12.0.0-r2\mingw64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/GameLib.dir/src/Game.cpp.obj -MF CMakeFiles\GameLib.dir\src\Game.cpp.obj.d -o CMakeFiles\GameLib.dir\src\Game.cpp.obj -c D:\Users\download\tetris_AI\s101cmake-sfml-tetris-main\s101cmake-sfml-tetris-main\src\Game.cpp
 
 CMakeFiles/GameLib.dir/src/Game.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/GameLib.dir/src/Game.cpp.i"
-	D:\practice\vscode\mingw64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E D:\sfmlgame\tetris_AI\s101cmake-sfml-tetris-main\s101cmake-sfml-tetris-main\src\Game.cpp > CMakeFiles\GameLib.dir\src\Game.cpp.i
+	D:\Users\winlibs-x86_64-posix-seh-gcc-14.2.0-mingw-w64ucrt-12.0.0-r2\mingw64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E D:\Users\download\tetris_AI\s101cmake-sfml-tetris-main\s101cmake-sfml-tetris-main\src\Game.cpp > CMakeFiles\GameLib.dir\src\Game.cpp.i
 
 CMakeFiles/GameLib.dir/src/Game.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/GameLib.dir/src/Game.cpp.s"
-	D:\practice\vscode\mingw64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S D:\sfmlgame\tetris_AI\s101cmake-sfml-tetris-main\s101cmake-sfml-tetris-main\src\Game.cpp -o CMakeFiles\GameLib.dir\src\Game.cpp.s
+	D:\Users\winlibs-x86_64-posix-seh-gcc-14.2.0-mingw-w64ucrt-12.0.0-r2\mingw64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S D:\Users\download\tetris_AI\s101cmake-sfml-tetris-main\s101cmake-sfml-tetris-main\src\Game.cpp -o CMakeFiles\GameLib.dir\src\Game.cpp.s
 
 CMakeFiles/GameLib.dir/src/Tetris.cpp.obj: CMakeFiles/GameLib.dir/flags.make
 CMakeFiles/GameLib.dir/src/Tetris.cpp.obj: CMakeFiles/GameLib.dir/includes_CXX.rsp
-CMakeFiles/GameLib.dir/src/Tetris.cpp.obj: D:/sfmlgame/tetris_AI/s101cmake-sfml-tetris-main/s101cmake-sfml-tetris-main/src/Tetris.cpp
+CMakeFiles/GameLib.dir/src/Tetris.cpp.obj: D:/Users/download/tetris_AI/s101cmake-sfml-tetris-main/s101cmake-sfml-tetris-main/src/Tetris.cpp
 CMakeFiles/GameLib.dir/src/Tetris.cpp.obj: CMakeFiles/GameLib.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=D:\sfmlgame\tetris_AI\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/GameLib.dir/src/Tetris.cpp.obj"
-	D:\practice\vscode\mingw64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/GameLib.dir/src/Tetris.cpp.obj -MF CMakeFiles\GameLib.dir\src\Tetris.cpp.obj.d -o CMakeFiles\GameLib.dir\src\Tetris.cpp.obj -c D:\sfmlgame\tetris_AI\s101cmake-sfml-tetris-main\s101cmake-sfml-tetris-main\src\Tetris.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=D:\Users\download\tetris_AI\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/GameLib.dir/src/Tetris.cpp.obj"
+	D:\Users\winlibs-x86_64-posix-seh-gcc-14.2.0-mingw-w64ucrt-12.0.0-r2\mingw64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/GameLib.dir/src/Tetris.cpp.obj -MF CMakeFiles\GameLib.dir\src\Tetris.cpp.obj.d -o CMakeFiles\GameLib.dir\src\Tetris.cpp.obj -c D:\Users\download\tetris_AI\s101cmake-sfml-tetris-main\s101cmake-sfml-tetris-main\src\Tetris.cpp
 
 CMakeFiles/GameLib.dir/src/Tetris.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/GameLib.dir/src/Tetris.cpp.i"
-	D:\practice\vscode\mingw64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E D:\sfmlgame\tetris_AI\s101cmake-sfml-tetris-main\s101cmake-sfml-tetris-main\src\Tetris.cpp > CMakeFiles\GameLib.dir\src\Tetris.cpp.i
+	D:\Users\winlibs-x86_64-posix-seh-gcc-14.2.0-mingw-w64ucrt-12.0.0-r2\mingw64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E D:\Users\download\tetris_AI\s101cmake-sfml-tetris-main\s101cmake-sfml-tetris-main\src\Tetris.cpp > CMakeFiles\GameLib.dir\src\Tetris.cpp.i
 
 CMakeFiles/GameLib.dir/src/Tetris.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/GameLib.dir/src/Tetris.cpp.s"
-	D:\practice\vscode\mingw64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S D:\sfmlgame\tetris_AI\s101cmake-sfml-tetris-main\s101cmake-sfml-tetris-main\src\Tetris.cpp -o CMakeFiles\GameLib.dir\src\Tetris.cpp.s
+	D:\Users\winlibs-x86_64-posix-seh-gcc-14.2.0-mingw-w64ucrt-12.0.0-r2\mingw64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S D:\Users\download\tetris_AI\s101cmake-sfml-tetris-main\s101cmake-sfml-tetris-main\src\Tetris.cpp -o CMakeFiles\GameLib.dir\src\Tetris.cpp.s
 
 CMakeFiles/GameLib.dir/src/GeneticAlgorithm.cpp.obj: CMakeFiles/GameLib.dir/flags.make
 CMakeFiles/GameLib.dir/src/GeneticAlgorithm.cpp.obj: CMakeFiles/GameLib.dir/includes_CXX.rsp
-CMakeFiles/GameLib.dir/src/GeneticAlgorithm.cpp.obj: D:/sfmlgame/tetris_AI/s101cmake-sfml-tetris-main/s101cmake-sfml-tetris-main/src/GeneticAlgorithm.cpp
+CMakeFiles/GameLib.dir/src/GeneticAlgorithm.cpp.obj: D:/Users/download/tetris_AI/s101cmake-sfml-tetris-main/s101cmake-sfml-tetris-main/src/GeneticAlgorithm.cpp
 CMakeFiles/GameLib.dir/src/GeneticAlgorithm.cpp.obj: CMakeFiles/GameLib.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=D:\sfmlgame\tetris_AI\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/GameLib.dir/src/GeneticAlgorithm.cpp.obj"
-	D:\practice\vscode\mingw64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/GameLib.dir/src/GeneticAlgorithm.cpp.obj -MF CMakeFiles\GameLib.dir\src\GeneticAlgorithm.cpp.obj.d -o CMakeFiles\GameLib.dir\src\GeneticAlgorithm.cpp.obj -c D:\sfmlgame\tetris_AI\s101cmake-sfml-tetris-main\s101cmake-sfml-tetris-main\src\GeneticAlgorithm.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=D:\Users\download\tetris_AI\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/GameLib.dir/src/GeneticAlgorithm.cpp.obj"
+	D:\Users\winlibs-x86_64-posix-seh-gcc-14.2.0-mingw-w64ucrt-12.0.0-r2\mingw64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/GameLib.dir/src/GeneticAlgorithm.cpp.obj -MF CMakeFiles\GameLib.dir\src\GeneticAlgorithm.cpp.obj.d -o CMakeFiles\GameLib.dir\src\GeneticAlgorithm.cpp.obj -c D:\Users\download\tetris_AI\s101cmake-sfml-tetris-main\s101cmake-sfml-tetris-main\src\GeneticAlgorithm.cpp
 
 CMakeFiles/GameLib.dir/src/GeneticAlgorithm.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/GameLib.dir/src/GeneticAlgorithm.cpp.i"
-	D:\practice\vscode\mingw64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E D:\sfmlgame\tetris_AI\s101cmake-sfml-tetris-main\s101cmake-sfml-tetris-main\src\GeneticAlgorithm.cpp > CMakeFiles\GameLib.dir\src\GeneticAlgorithm.cpp.i
+	D:\Users\winlibs-x86_64-posix-seh-gcc-14.2.0-mingw-w64ucrt-12.0.0-r2\mingw64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E D:\Users\download\tetris_AI\s101cmake-sfml-tetris-main\s101cmake-sfml-tetris-main\src\GeneticAlgorithm.cpp > CMakeFiles\GameLib.dir\src\GeneticAlgorithm.cpp.i
 
 CMakeFiles/GameLib.dir/src/GeneticAlgorithm.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/GameLib.dir/src/GeneticAlgorithm.cpp.s"
-	D:\practice\vscode\mingw64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S D:\sfmlgame\tetris_AI\s101cmake-sfml-tetris-main\s101cmake-sfml-tetris-main\src\GeneticAlgorithm.cpp -o CMakeFiles\GameLib.dir\src\GeneticAlgorithm.cpp.s
+	D:\Users\winlibs-x86_64-posix-seh-gcc-14.2.0-mingw-w64ucrt-12.0.0-r2\mingw64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S D:\Users\download\tetris_AI\s101cmake-sfml-tetris-main\s101cmake-sfml-tetris-main\src\GeneticAlgorithm.cpp -o CMakeFiles\GameLib.dir\src\GeneticAlgorithm.cpp.s
 
 # Object files for target GameLib
 GameLib_OBJECTS = \
@@ -127,7 +127,7 @@ libGameLib.a: CMakeFiles/GameLib.dir/src/Tetris.cpp.obj
 libGameLib.a: CMakeFiles/GameLib.dir/src/GeneticAlgorithm.cpp.obj
 libGameLib.a: CMakeFiles/GameLib.dir/build.make
 libGameLib.a: CMakeFiles/GameLib.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=D:\sfmlgame\tetris_AI\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Linking CXX static library libGameLib.a"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=D:\Users\download\tetris_AI\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Linking CXX static library libGameLib.a"
 	$(CMAKE_COMMAND) -P CMakeFiles\GameLib.dir\cmake_clean_target.cmake
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles\GameLib.dir\link.txt --verbose=$(VERBOSE)
 
@@ -140,6 +140,6 @@ CMakeFiles/GameLib.dir/clean:
 .PHONY : CMakeFiles/GameLib.dir/clean
 
 CMakeFiles/GameLib.dir/depend:
-	$(CMAKE_COMMAND) -E cmake_depends "MinGW Makefiles" D:\sfmlgame\tetris_AI\s101cmake-sfml-tetris-main\s101cmake-sfml-tetris-main D:\sfmlgame\tetris_AI\s101cmake-sfml-tetris-main\s101cmake-sfml-tetris-main D:\sfmlgame\tetris_AI\build D:\sfmlgame\tetris_AI\build D:\sfmlgame\tetris_AI\build\CMakeFiles\GameLib.dir\DependInfo.cmake "--color=$(COLOR)"
+	$(CMAKE_COMMAND) -E cmake_depends "MinGW Makefiles" D:\Users\download\tetris_AI\s101cmake-sfml-tetris-main\s101cmake-sfml-tetris-main D:\Users\download\tetris_AI\s101cmake-sfml-tetris-main\s101cmake-sfml-tetris-main D:\Users\download\tetris_AI\build D:\Users\download\tetris_AI\build D:\Users\download\tetris_AI\build\CMakeFiles\GameLib.dir\DependInfo.cmake "--color=$(COLOR)"
 .PHONY : CMakeFiles/GameLib.dir/depend
 

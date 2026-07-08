@@ -23,6 +23,7 @@ void Tetris::Initial(Texture* tex, RenderWindow* w)
     dx = 0; //X方向偏移量
     score = 0;
     isGameOver = false;
+    aiEnabled = false;
     isRotate = false; //是否旋转
     isHold = false;	//是否有hold块图形
     isHardDrop = false; //是否硬降
@@ -102,6 +103,8 @@ void Tetris::Input(const std::optional<sf::Event>& event)
                 isHardDrop = true;
             if (keyReleased->scancode == sf::Keyboard::Scancode::LControl)
                 isHold = true;
+            if (keyReleased->scancode == sf::Keyboard::Scancode::Z)
+                aiEnabled = !aiEnabled;
             if (keyReleased->scancode == sf::Keyboard::Scancode::A || keyReleased->scancode == sf::Keyboard::Scancode::D)
                 dx = 0; //水平移动
             if (keyReleased->scancode == sf::Keyboard::Scancode::S)
@@ -129,6 +132,8 @@ void Tetris::Input(const std::optional<sf::Event>& event)
                 isHardDrop = true;
             if (keyReleased->scancode == sf::Keyboard::Scancode::RControl)
                 isHold = true;
+            if (keyReleased->scancode == sf::Keyboard::Scancode::Num0 || keyReleased->scancode == sf::Keyboard::Scancode::Numpad0)
+                aiEnabled = !aiEnabled;
             if (keyReleased->scancode == sf::Keyboard::Scancode::Left || keyReleased->scancode == sf::Keyboard::Scancode::Right)
                 dx = 0; //水平移动
             if (keyReleased->scancode == sf::Keyboard::Scancode::Down)

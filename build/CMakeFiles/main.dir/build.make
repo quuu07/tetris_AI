@@ -43,19 +43,19 @@ cmake_force:
 SHELL = cmd.exe
 
 # The CMake executable.
-CMAKE_COMMAND = D:\practice\vscode\mingw64\bin\cmake.exe
+CMAKE_COMMAND = D:\Users\winlibs-x86_64-posix-seh-gcc-14.2.0-mingw-w64ucrt-12.0.0-r2\mingw64\bin\cmake.exe
 
 # The command to remove a file.
-RM = D:\practice\vscode\mingw64\bin\cmake.exe -E rm -f
+RM = D:\Users\winlibs-x86_64-posix-seh-gcc-14.2.0-mingw-w64ucrt-12.0.0-r2\mingw64\bin\cmake.exe -E rm -f
 
 # Escaping for special characters.
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = D:\sfmlgame\tetris_AI\s101cmake-sfml-tetris-main\s101cmake-sfml-tetris-main
+CMAKE_SOURCE_DIR = D:\Users\download\tetris_AI\s101cmake-sfml-tetris-main\s101cmake-sfml-tetris-main
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = D:\sfmlgame\tetris_AI\build
+CMAKE_BINARY_DIR = D:\Users\download\tetris_AI\build
 
 # Include any dependencies generated for this target.
 include CMakeFiles/main.dir/depend.make
@@ -70,18 +70,18 @@ include CMakeFiles/main.dir/flags.make
 
 CMakeFiles/main.dir/src/main.cpp.obj: CMakeFiles/main.dir/flags.make
 CMakeFiles/main.dir/src/main.cpp.obj: CMakeFiles/main.dir/includes_CXX.rsp
-CMakeFiles/main.dir/src/main.cpp.obj: D:/sfmlgame/tetris_AI/s101cmake-sfml-tetris-main/s101cmake-sfml-tetris-main/src/main.cpp
+CMakeFiles/main.dir/src/main.cpp.obj: D:/Users/download/tetris_AI/s101cmake-sfml-tetris-main/s101cmake-sfml-tetris-main/src/main.cpp
 CMakeFiles/main.dir/src/main.cpp.obj: CMakeFiles/main.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=D:\sfmlgame\tetris_AI\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/main.dir/src/main.cpp.obj"
-	D:\practice\vscode\mingw64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/main.dir/src/main.cpp.obj -MF CMakeFiles\main.dir\src\main.cpp.obj.d -o CMakeFiles\main.dir\src\main.cpp.obj -c D:\sfmlgame\tetris_AI\s101cmake-sfml-tetris-main\s101cmake-sfml-tetris-main\src\main.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=D:\Users\download\tetris_AI\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/main.dir/src/main.cpp.obj"
+	D:\Users\winlibs-x86_64-posix-seh-gcc-14.2.0-mingw-w64ucrt-12.0.0-r2\mingw64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/main.dir/src/main.cpp.obj -MF CMakeFiles\main.dir\src\main.cpp.obj.d -o CMakeFiles\main.dir\src\main.cpp.obj -c D:\Users\download\tetris_AI\s101cmake-sfml-tetris-main\s101cmake-sfml-tetris-main\src\main.cpp
 
 CMakeFiles/main.dir/src/main.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/main.dir/src/main.cpp.i"
-	D:\practice\vscode\mingw64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E D:\sfmlgame\tetris_AI\s101cmake-sfml-tetris-main\s101cmake-sfml-tetris-main\src\main.cpp > CMakeFiles\main.dir\src\main.cpp.i
+	D:\Users\winlibs-x86_64-posix-seh-gcc-14.2.0-mingw-w64ucrt-12.0.0-r2\mingw64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E D:\Users\download\tetris_AI\s101cmake-sfml-tetris-main\s101cmake-sfml-tetris-main\src\main.cpp > CMakeFiles\main.dir\src\main.cpp.i
 
 CMakeFiles/main.dir/src/main.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/main.dir/src/main.cpp.s"
-	D:\practice\vscode\mingw64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S D:\sfmlgame\tetris_AI\s101cmake-sfml-tetris-main\s101cmake-sfml-tetris-main\src\main.cpp -o CMakeFiles\main.dir\src\main.cpp.s
+	D:\Users\winlibs-x86_64-posix-seh-gcc-14.2.0-mingw-w64ucrt-12.0.0-r2\mingw64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S D:\Users\download\tetris_AI\s101cmake-sfml-tetris-main\s101cmake-sfml-tetris-main\src\main.cpp -o CMakeFiles\main.dir\src\main.cpp.s
 
 # Object files for target main
 main_OBJECTS = \
@@ -93,24 +93,24 @@ main_EXTERNAL_OBJECTS =
 bin/main.exe: CMakeFiles/main.dir/src/main.cpp.obj
 bin/main.exe: CMakeFiles/main.dir/build.make
 bin/main.exe: libGameLib.a
-bin/main.exe: D:/sfmlgame/SFML-3.0.0-windows-gcc-14.2.0-mingw-64-bit/SFML-3.0.0/lib/libsfml-graphics-s-d.a
-bin/main.exe: D:/sfmlgame/SFML-3.0.0-windows-gcc-14.2.0-mingw-64-bit/SFML-3.0.0/lib/libfreetyped.a
-bin/main.exe: D:/sfmlgame/SFML-3.0.0-windows-gcc-14.2.0-mingw-64-bit/SFML-3.0.0/lib/libsfml-window-s-d.a
-bin/main.exe: D:/sfmlgame/SFML-3.0.0-windows-gcc-14.2.0-mingw-64-bit/SFML-3.0.0/lib/libsfml-audio-s-d.a
-bin/main.exe: D:/sfmlgame/SFML-3.0.0-windows-gcc-14.2.0-mingw-64-bit/SFML-3.0.0/lib/libvorbisfiled.a
-bin/main.exe: D:/sfmlgame/SFML-3.0.0-windows-gcc-14.2.0-mingw-64-bit/SFML-3.0.0/lib/libvorbisencd.a
-bin/main.exe: D:/sfmlgame/SFML-3.0.0-windows-gcc-14.2.0-mingw-64-bit/SFML-3.0.0/lib/libvorbisd.a
-bin/main.exe: D:/sfmlgame/SFML-3.0.0-windows-gcc-14.2.0-mingw-64-bit/SFML-3.0.0/lib/libFLACd.a
-bin/main.exe: D:/sfmlgame/SFML-3.0.0-windows-gcc-14.2.0-mingw-64-bit/SFML-3.0.0/lib/liboggd.a
-bin/main.exe: D:/sfmlgame/SFML-3.0.0-windows-gcc-14.2.0-mingw-64-bit/SFML-3.0.0/lib/libsfml-network-s-d.a
-bin/main.exe: D:/sfmlgame/SFML-3.0.0-windows-gcc-14.2.0-mingw-64-bit/SFML-3.0.0/lib/libsfml-system-s-d.a
+bin/main.exe: D:/Users/download/SFML/SFML-3.0.0/lib/libsfml-graphics-s-d.a
+bin/main.exe: D:/Users/download/SFML/SFML-3.0.0/lib/libfreetyped.a
+bin/main.exe: D:/Users/download/SFML/SFML-3.0.0/lib/libsfml-window-s-d.a
+bin/main.exe: D:/Users/download/SFML/SFML-3.0.0/lib/libsfml-audio-s-d.a
+bin/main.exe: D:/Users/download/SFML/SFML-3.0.0/lib/libvorbisfiled.a
+bin/main.exe: D:/Users/download/SFML/SFML-3.0.0/lib/libvorbisencd.a
+bin/main.exe: D:/Users/download/SFML/SFML-3.0.0/lib/libvorbisd.a
+bin/main.exe: D:/Users/download/SFML/SFML-3.0.0/lib/libFLACd.a
+bin/main.exe: D:/Users/download/SFML/SFML-3.0.0/lib/liboggd.a
+bin/main.exe: D:/Users/download/SFML/SFML-3.0.0/lib/libsfml-network-s-d.a
+bin/main.exe: D:/Users/download/SFML/SFML-3.0.0/lib/libsfml-system-s-d.a
 bin/main.exe: CMakeFiles/main.dir/linkLibs.rsp
 bin/main.exe: CMakeFiles/main.dir/objects1.rsp
 bin/main.exe: CMakeFiles/main.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=D:\sfmlgame\tetris_AI\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable bin\main.exe"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=D:\Users\download\tetris_AI\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable bin\main.exe"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles\main.dir\link.txt --verbose=$(VERBOSE)
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --blue --bold "Copying data directory to output directory"
-	D:\practice\vscode\mingw64\bin\cmake.exe -E copy_directory D:/sfmlgame/tetris_AI/s101cmake-sfml-tetris-main/s101cmake-sfml-tetris-main/data D:/sfmlgame/tetris_AI/build/bin/data
+	D:\Users\winlibs-x86_64-posix-seh-gcc-14.2.0-mingw-w64ucrt-12.0.0-r2\mingw64\bin\cmake.exe -E copy_directory D:/Users/download/tetris_AI/s101cmake-sfml-tetris-main/s101cmake-sfml-tetris-main/data D:/Users/download/tetris_AI/build/bin/data
 
 # Rule to build all files generated by this target.
 CMakeFiles/main.dir/build: bin/main.exe
@@ -121,6 +121,6 @@ CMakeFiles/main.dir/clean:
 .PHONY : CMakeFiles/main.dir/clean
 
 CMakeFiles/main.dir/depend:
-	$(CMAKE_COMMAND) -E cmake_depends "MinGW Makefiles" D:\sfmlgame\tetris_AI\s101cmake-sfml-tetris-main\s101cmake-sfml-tetris-main D:\sfmlgame\tetris_AI\s101cmake-sfml-tetris-main\s101cmake-sfml-tetris-main D:\sfmlgame\tetris_AI\build D:\sfmlgame\tetris_AI\build D:\sfmlgame\tetris_AI\build\CMakeFiles\main.dir\DependInfo.cmake "--color=$(COLOR)"
+	$(CMAKE_COMMAND) -E cmake_depends "MinGW Makefiles" D:\Users\download\tetris_AI\s101cmake-sfml-tetris-main\s101cmake-sfml-tetris-main D:\Users\download\tetris_AI\s101cmake-sfml-tetris-main\s101cmake-sfml-tetris-main D:\Users\download\tetris_AI\build D:\Users\download\tetris_AI\build D:\Users\download\tetris_AI\build\CMakeFiles\main.dir\DependInfo.cmake "--color=$(COLOR)"
 .PHONY : CMakeFiles/main.dir/depend
 

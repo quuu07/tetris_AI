@@ -9,7 +9,7 @@ option(BUILD_SHARED_LIBS "Build libraries as shared" OFF)
 # ========= 本地SFML 3.0.0 配置（解决Ogg缺失报错，完整保留音频网络） =========
 set(SFML_STATIC_LIBRARIES TRUE)
 # 你的SFML解压根路径，不用修改，和你报错里的路径一致
-set(SFML_ROOT "D:/sfmlgame/SFML-3.0.0-windows-gcc-14.2.0-mingw-64-bit/SFML-3.0.0")
+set(SFML_ROOT "D:/Users/download/SFML/SFML-3.0.0")
 # 让CMake读取extlibs里的ogg/vorbis音频依赖库
 list(APPEND CMAKE_PREFIX_PATH "${SFML_ROOT}/extlibs")
 # 指定SFML的cmake配置目录
