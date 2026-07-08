@@ -8,10 +8,14 @@
  */
 
 #include "Game.h"
-//#include "GeneticAlgorithm.h"
+#include "GeneticAlgorithm.h"
 
-int main()
+int main(int argc, char* argv[])
 {
+    if (argc > 1 && std::string(argv[1]) == "--ga") {
+        runGA();   // 运行遗传算法
+        return 0;
+    }
 	
 	Game tetrisGame;
 	while (tetrisGame.window.isOpen())

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Site BuildName="(empty)"
+	BuildStamp="20260708-0822-Experimental"
+	Name="(empty)"
+	Generator="ctest-3.30.4"
+	CompilerName=""
+	CompilerVersion=""
+	OSName="Windows"
+	Hostname="[NON-UTF-8-BYTE-0xCF][NON-UTF-8-BYTE-0xC4][NON-UTF-8-BYTE-0xD5][NON-UTF-8-BYTE-0xEC]̽[NON-UTF-8-BYTE-0xB5]Ļ[NON-UTF-8-BYTE-0xAA][NON-UTF-8-BYTE-0xC9][NON-UTF-8-BYTE-0xFA]ר[NON-UTF-8-BYTE-0xCA][NON-UTF-8-BYTE-0xF4][NON-UTF-8-BYTE-0xB5][NON-UTF-8-BYTE-0xE7][NON-UTF-8-BYTE-0xC4][NON-UTF-8-BYTE-0xD4]"
+	OSRelease=" Personal"
+	OSVersion=" (Build 9200)"
+	OSPlatform="AMD64"
+	Is64Bits="1"
+	VendorString=""
+	VendorID="Unknown Manufacturer"
+	FamilyID="0"
+	ModelID="0"
+	ProcessorCacheSize="0"
+	NumberOfLogicalCPU="16"
+	NumberOfPhysicalCPU="8"
+	TotalVirtualMemory="32045"
+	TotalPhysicalMemory="23853"
+	LogicalProcessorsPerPhysical="2"
+	ProcessorClockFrequency="3793"
+	>
+	<Testing>
+		<StartDateTime>Jul 08 16:22 [NON-UTF-8-BYTE-0xD6]й[NON-UTF-8-BYTE-0xFA][NON-UTF-8-BYTE-0xB1][NON-UTF-8-BYTE-0xEA]׼ʱ[NON-UTF-8-BYTE-0xBC][NON-UTF-8-BYTE-0xE4]</StartDateTime>
+		<StartTestTime>1783498974</StartTestTime>
+		<TestList/>
+		<EndDateTime>Jul 08 16:22 [NON-UTF-8-BYTE-0xD6]й[NON-UTF-8-BYTE-0xFA][NON-UTF-8-BYTE-0xB1][NON-UTF-8-BYTE-0xEA]׼ʱ[NON-UTF-8-BYTE-0xBC][NON-UTF-8-BYTE-0xE4]</EndDateTime>
+		<EndTestTime>1783498974</EndTestTime>
+		<ElapsedMinutes>0</ElapsedMinutes>
+	</Testing>
+</Site>

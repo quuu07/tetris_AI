@@ -23,6 +23,8 @@ void Tetris::Initial(Texture* tex, RenderWindow* w)
     dx = 0; //X方向偏移量
     score = 0;
     isGameOver = false;
+    aiEnabled = false;
+    aiMovePlanned = false;
     isRotate = false; //是否旋转
     isHold = false;	//是否有hold块图形
     isHardDrop = false; //是否硬降
@@ -102,6 +104,8 @@ void Tetris::Input(const std::optional<sf::Event>& event)
                 isHardDrop = true;
             if (keyReleased->scancode == sf::Keyboard::Scancode::LControl)
                 isHold = true;
+            if (keyReleased->scancode == sf::Keyboard::Scancode::Z)
+                aiEnabled = !aiEnabled;
             if (keyReleased->scancode == sf::Keyboard::Scancode::A || keyReleased->scancode == sf::Keyboard::Scancode::D)
                 dx = 0; //水平移动
             if (keyReleased->scancode == sf::Keyboard::Scancode::S)
@@ -129,6 +133,8 @@ void Tetris::Input(const std::optional<sf::Event>& event)
                 isHardDrop = true;
             if (keyReleased->scancode == sf::Keyboard::Scancode::RControl)
                 isHold = true;
+            if (keyReleased->scancode == sf::Keyboard::Scancode::Num0 || keyReleased->scancode == sf::Keyboard::Scancode::Numpad0)
+                aiEnabled = !aiEnabled;
             if (keyReleased->scancode == sf::Keyboard::Scancode::Left || keyReleased->scancode == sf::Keyboard::Scancode::Right)
                 dx = 0; //水平移动
             if (keyReleased->scancode == sf::Keyboard::Scancode::Down)
@@ -478,10 +484,13 @@ bool Tetris::isValidPlacement(int shapeNum, int rotState, int posX, int posY) {
 }
 
 void Tetris::AIAutoPlay() {
-    if (isGameOver || animationFlag || currentShapeNum < 0) return;
+    if (isGameOver || animationFlag || currentShapeNum < 0 || newShapeFlag || aiMovePlanned) return;
 
     float bestScore = -1e9f;
     int bestX = 0, bestY = 0, bestRot = 0;
+
+    const bool useNextLookahead = true;
+    const float nextLookaheadWeight = 0.45f;
 
     int maxRot = (currentShapeNum == shapeO) ? 1 : 4;
     for (int rot = 0; rot < maxRot; rot++) {
@@ -490,31 +499,47 @@ void Tetris::AIAutoPlay() {
             while (isValidPlacement(currentShapeNum, rot, x, y + 1)) y++;
             if (!isValidPlacement(currentShapeNum, rot, x, y)) continue;
 
-            // 先备份场地
+            // 计算 PD 分数
+            float score = evaluatePD(currentShapeNum, rot, x, y);
+
+            // 先备份场地并放置当前方块，用于 next-prediction 搜索
             int backup[FIELD_HEIGHT][FIELD_WIDTH];
             memcpy(backup, Field, sizeof(Field));
-
-            // 临时放置方块
-            Vector2i coords[4];
-            getRotatedCoords(currentShapeNum, rot, x, y, coords);
+            Vector2i currentCoords[4];
+            getRotatedCoords(currentShapeNum, rot, x, y, currentCoords);
             for (int i = 0; i < 4; i++) {
-                int cx = coords[i].x, cy = coords[i].y;
+                int cx = currentCoords[i].x, cy = currentCoords[i].y;
                 if (cy >= 0 && cy < FIELD_HEIGHT && cx >= 0 && cx < FIELD_WIDTH) {
                     Field[cy][cx] = 1;
                 }
             }
+
             // 计算消除行数
             int lines = calcRowsEliminated();
-            // 恢复场地
-            memcpy(Field, backup, sizeof(Field));
-
-            // 计算 PD 分数
-            float score = evaluatePD(currentShapeNum, rot, x, y);
-
-            // 如果该位置能消行，给予巨大奖励
             if (lines > 0) {
                 score += 10000.0f * lines;   // 强力优先消行
             }
+
+            if (useNextLookahead) {
+                float bestNextScore = -1e9f;
+                int nextMaxRot = (nextShapeNum == shapeO) ? 1 : 4;
+                for (int nextRot = 0; nextRot < nextMaxRot; nextRot++) {
+                    for (int nextX = -2; nextX < FIELD_WIDTH; nextX++) {
+                        int nextY = 0;
+                        while (isValidPlacement(nextShapeNum, nextRot, nextX, nextY + 1)) nextY++;
+                        if (!isValidPlacement(nextShapeNum, nextRot, nextX, nextY)) continue;
+                        float nextScore = evaluatePD(nextShapeNum, nextRot, nextX, nextY);
+                        if (nextScore > bestNextScore) {
+                            bestNextScore = nextScore;
+                        }
+                    }
+                }
+                if (bestNextScore > -1e8f) {
+                    score += nextLookaheadWeight * bestNextScore;
+                }
+            }
+
+            memcpy(Field, backup, sizeof(Field));
 
             if (score > bestScore) {
                 bestScore = score;
@@ -538,6 +563,7 @@ void Tetris::AIAutoPlay() {
 
     // 3. 标记需要生成新方块（让 Logic 处理消行和后续）
     newShapeFlag = true;
+    aiMovePlanned = true;
     // 注意：不要调用 newShapeFunc，让 Logic 自己处理
 }
 
@@ -661,19 +687,37 @@ float Tetris::evaluatePD(int shapeNum, int rotState, int posX, int posY) {
     int holes = calcHoles();
     int wellSums = calcWellSums();
 
+    int maxHeight = 0;
+    for (int col = 0; col < FIELD_WIDTH; ++col) {
+        int top = 0;
+        while (top < FIELD_HEIGHT && Field[top][col] == 0) ++top;
+        if (top < FIELD_HEIGHT) {
+            maxHeight = std::max(maxHeight, top);
+        }
+    }
+
     // 4. 恢复场地
     memcpy(Field, backupField, sizeof(Field));
 
-    // 5. 套用 Pierre Dellacherie 的经典权重
-    //ga
+    // 5. 套用更稳妥的权重，避免 AI 只盯着短期消行
     float score = 
         pdWeights[0] * landingHeight +
         pdWeights[1] * rowsEliminated +
         pdWeights[2] * rowTrans +
         pdWeights[3] * colTrans +
         pdWeights[4] * holes +
-        pdWeights[5] * wellSums;
-    //ga
+        pdWeights[5] * wellSums -
+        0.6f * maxHeight;
+
+    if (rowsEliminated > 0) {
+        score += 1200.0f * rowsEliminated;
+    }
+    if (holes == 0) {
+        score += 60.0f;
+    }
+    if (maxHeight > 12) {
+        score -= 200.0f;
+    }
 
     return score;
 }
@@ -821,6 +865,7 @@ void Tetris::newShapeFunc()
     shadow();
 
     newShapeFlag = false;//这样下次才能再进来
+    aiMovePlanned = false;
 
     for (int i = 0; i < 4; i++)
         animationRow[i] = 99;//本来应该动画播放完之后就清零，但容易造成框架结构混乱；这里99为异常值，表待定的意思

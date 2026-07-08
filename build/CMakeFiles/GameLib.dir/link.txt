@@ -1,2 +1,0 @@
-D:\practice\vscode\mingw64\bin\ar.exe qc libGameLib.a CMakeFiles/GameLib.dir/src/Game.cpp.obj CMakeFiles/GameLib.dir/src/Tetris.cpp.obj CMakeFiles/GameLib.dir/src/GeneticAlgorithm.cpp.obj
-D:\practice\vscode\mingw64\bin\ranlib.exe libGameLib.a

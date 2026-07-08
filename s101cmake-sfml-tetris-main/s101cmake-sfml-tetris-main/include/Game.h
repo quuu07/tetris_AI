@@ -15,6 +15,8 @@
 #define  B_LEFT_CORNER_Y			460
 #define  B_RIGHT_CORNER_X			1295
 #define  B_RIGHT_CORNER_Y			460
+#define  B_AI_CORNER_X			610
+#define  B_AI_CORNER_Y			20
 using namespace sf;			//SFML中的每个类都位于该命名空间之下，不设定sf命名空间的话，相应的函数前需要用作用域解析符，例如 sf::VideoMode(width* GRIDSIZE, height* GRIDSIZE)
 
 enum ButtonState {
@@ -42,13 +44,14 @@ public:
 	unsigned int Window_width, Window_height;
 	int stageWidth, stageHeight;
 	bool isGameBegin, isGameHold;//------->游戏是否开始
+	bool aiAssistEnabled;
 	int isGameOverState;//------->游戏结束的状态
 	Vector2i mCornPoint;//游戏区域位置
 	int gridSize;//块大小（15）
 	int imgSetNo;
 	Texture tBackground, tTiles, tButtons, tSwitcher, tFrame, tCover, tScore, tGameOver;		//创建纹理对象
 	Sprite	sBackground, sTiles, sButtons, sSwitcher, sFrame, sCover, sScore, sGameOver;		//创建精灵对象
-	sf::IntRect ButtonRectStart, ButtonRectHold, ButtonRectLeft, ButtonRectRight;
+	sf::IntRect ButtonRectStart, ButtonRectHold, ButtonRectLeft, ButtonRectRight, ButtonRectAI;
 	int ButtonState_Start, ButtonState_Hold;
 	Font font;
 	Text text;
@@ -63,7 +66,6 @@ public:
     //ga
 	void gameInitial();
 	void LoadMediaData();
-	void TextOut();
 
 	void gameInput();
 	void gameOverInput();
@@ -71,8 +73,9 @@ public:
 	void gameDraw();
 	void gameRun();
 
-	void DrawButton();
+	void DrawButton();	
 	void DrawResults();
+	void DrawScoreText();
 	//ga
 	private:
     bool headless;                 // 标记是否无窗口模式

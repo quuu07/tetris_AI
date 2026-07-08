@@ -1,29 +1,62 @@
 #include "Game.h"
 #include <cstring>
+#include <fstream>
+#include <string>
+#include <filesystem>
+#define WIN32_LEAN_AND_MEAN
+#include <windows.h>
+#undef TextOut
+
+static std::string getExecutableDirectory() {
+    char buffer[MAX_PATH];
+    DWORD length = GetModuleFileNameA(NULL, buffer, MAX_PATH);
+    if (length == 0 || length == MAX_PATH) {
+        return {};
+    }
+    std::filesystem::path exePath(buffer);
+    return exePath.parent_path().string();
+}
+
+static bool loadGAWeights(float weights[6]) {
+    std::filesystem::path weightPath = std::filesystem::path(getExecutableDirectory()) / "ga_best_weights.txt";
+    std::ifstream in(weightPath);
+    if (!in.is_open()) {
+        return false;
+    }
+    for (int i = 0; i < 6; ++i) {
+        if (!(in >> weights[i])) {
+            return false;
+        }
+    }
+    return true;
+}
+
 //bool headless
-Game::Game()
-    :headless(false), tTiles(), tBackground(), tButtons(), tSwitcher(), tFrame(), tCover(), tScore(), tGameOver(),
+Game::Game(bool headlessInit)
+    :headless(headlessInit), aiAssistEnabled(true), tTiles(), tBackground(), tButtons(), tSwitcher(), tFrame(), tCover(), tScore(), tGameOver(),
     sTiles(tTiles), sBackground(tBackground), sButtons(tButtons), sSwitcher(tSwitcher), sFrame(tFrame), sCover(tCover), sScore(tScore), sGameOver(tGameOver),
     font(), text(font),
     soundWin(sbWin), soundBoom(sbBoom)
 {
+    Window_width = 1350;
+    Window_height = 1000;
+    ButtonState_Start = Start_Dark;
+    imgSetNo = 1;
+
     if (!headless) {
-        Window_width = 1350;
-        Window_height = 1000;
-        ButtonState_Start = Start_Dark;
-        imgSetNo = 1;
         uint8_t WindowStyle = sf::Style::Close | sf::Style::Titlebar;
         window.create(sf::VideoMode({ Window_width, Window_height }), L"Tetris by 李仕", WindowStyle);
-        // 设置窗口位置等...
-        //window.setFramerateLimit(15);  // 可以挪到 gameInitial 里，这里只是示例
+        // 设置窗口在桌面上的位置	
+        sf::VideoMode mode = sf::VideoMode::getDesktopMode();//查询桌面的属性
+        Vector2i p = { 0,0 };
+        p.x = (mode.size.x - Window_width) / 2;
+        window.setPosition(p);
     }
+}
 
-
-    //设置窗口在桌面上的位置	
-    sf::VideoMode mode = sf::VideoMode::getDesktopMode();//查询桌面的属性
-    Vector2i p = { 0,0 };
-    p.x = (mode.size.x - Window_width) / 2;
-    window.setPosition(p);
+Game::Game()
+    : Game(false)
+{
 }
 
 Game::~Game()
@@ -47,47 +80,59 @@ void Game::gameInitial()
     player2.role = rolePLAYER2;		//定义Tetris对象为player1
     player1.Initial(&tTiles, &window);		//将方块的素材传给Tetris对象，由Tetris对象绘制方块
     player2.Initial(&tTiles, &window);		//将方块的素材传给Tetris对象，由Tetris对象绘制方块
+
+    float loadedWeights[6];
+    if (loadGAWeights(loadedWeights)) {
+        memcpy(player1.pdWeights, loadedWeights, 6 * sizeof(float));
+        memcpy(player2.pdWeights, loadedWeights, 6 * sizeof(float));
+        std::cout << "Loaded GA weights from ga_best_weights.txt\n";
+    }
 }
 void Game::LoadMediaData()
 {
     imgSetNo = 1;
-    std::stringstream ss;
-    ss << "./data/images/bg" << imgSetNo << ".jpg";//"data/images/BK01.png"
+    std::filesystem::path rootPath = std::filesystem::path(getExecutableDirectory()) / "data";
 
-    if (!tBackground.loadFromFile(ss.str()))//加载纹理图片
+    std::filesystem::path bgPath = rootPath / "images" / ("bg" + std::to_string(imgSetNo) + ".jpg");
+    if (!tBackground.loadFromFile(bgPath.string()))//加载纹理图片
     {
-        std::cout << "BK image 没有找到" << std::endl;
-    }
-    ss.str("");//清空字符串
-    ss << "./data/images/tiles" << imgSetNo << ".jpg";//"data/images/Game1.png"
-    if (!tTiles.loadFromFile(ss.str()))
-    {
-        std::cout << "tiles.png 没有找到" << std::endl;
+        std::cout << "BK image 没有找到: " << bgPath.string() << std::endl;
     }
 
-    if (!tFrame.loadFromFile("./data/images/frame.png"))
+    std::filesystem::path tilesPath = rootPath / "images" / ("tiles" + std::to_string(imgSetNo) + ".jpg");
+    if (!tTiles.loadFromFile(tilesPath.string()))
     {
-        std::cout << "frame.png 没有找到" << std::endl;
+        std::cout << "tiles.png 没有找到: " << tilesPath.string() << std::endl;
     }
-    if (!tCover.loadFromFile("./data/images/cover.png"))
+
+    std::filesystem::path framePath = rootPath / "images" / "frame.png";
+    if (!tFrame.loadFromFile(framePath.string()))
     {
-        std::cout << "cover.png 没有找到" << std::endl;
+        std::cout << "frame.png 没有找到: " << framePath.string() << std::endl;
     }
-    if (!tGameOver.loadFromFile("./data/images/end.png"))
+    std::filesystem::path coverPath = rootPath / "images" / "cover.png";
+    if (!tCover.loadFromFile(coverPath.string()))
     {
-        std::cout << "end.png 没有找到" << std::endl;
+        std::cout << "cover.png 没有找到: " << coverPath.string() << std::endl;
+    }
+    std::filesystem::path gameOverPath = rootPath / "images" / "end.png";
+    if (!tGameOver.loadFromFile(gameOverPath.string()))
+    {
+        std::cout << "end.png 没有找到: " << gameOverPath.string() << std::endl;
     }
     /*	if (!tScore.loadFromFile("data/images/recorder.jpg"))
         {
             std::cout << "recorder.jpg 没有找到" << std::endl;
         }*/
-    if (!tButtons.loadFromFile("./data/images/button.png"))
+    std::filesystem::path buttonsPath = rootPath / "images" / "button.png";
+    if (!tButtons.loadFromFile(buttonsPath.string()))
     {
-        std::cout << "button.png 没有找到" << std::endl;
+        std::cout << "button.png 没有找到: " << buttonsPath.string() << std::endl;
     }
-    if (!tSwitcher.loadFromFile("./data/images/bgSwitch.png"))
+    std::filesystem::path switcherPath = rootPath / "images" / "bgSwitch.png";
+    if (!tSwitcher.loadFromFile(switcherPath.string()))
     {
-        std::cout << "bgSwap.png 没有找到" << std::endl;
+        std::cout << "bgSwitch.png 没有找到: " << switcherPath.string() << std::endl;
     }
 
     sBackground.setTexture(tBackground, true);					//设置精灵对象的纹理
@@ -100,13 +145,14 @@ void Game::LoadMediaData()
     sSwitcher.setTexture(tSwitcher, true);
     sSwitcher.setOrigin({ static_cast<float>(sSwitcher.getLocalBounds().size.x / 2.0),static_cast<float> (sSwitcher.getLocalBounds().size.y / 2.0) });
 
-    if (!font.openFromFile(L"./data/Fonts/font.ttf"))//选择字体，SFML不能直接访问系统的字体，特殊的字体，需要自己加载
+    std::filesystem::path fontPath = rootPath / "Fonts" / "font.ttf";
+    if (!font.openFromFile(fontPath.wstring()))//选择字体，SFML不能直接访问系统的字体，特殊的字体，需要自己加载
     {
-        std::cout << "字体没有找到" << std::endl;
+        std::cout << "字体没有找到: " << fontPath.string() << std::endl;
     }
 
 }
-void Game::TextOut()
+void Game::DrawScoreText()
 {
     int initialX, initialY;
     int CharacterSize = 48;
@@ -164,6 +210,9 @@ void Game::TextOut()
     initialY += CharacterSize;
     text.setPosition({ static_cast<float>(INFO_CORNER_X), static_cast<float>(initialY) });
     text.setString(L"   交换： 左Ctrl键"); window.draw(text);
+    initialY += CharacterSize;
+    text.setPosition({ static_cast<float>(INFO_CORNER_X), static_cast<float>(initialY) });
+    text.setString(L"AI切换：Z"); window.draw(text);
     initialY += CharacterSize * 1.5;
     text.setPosition({ static_cast<float>(INFO_CORNER_X), static_cast<float>(initialY) });
     text.setString(L"玩家2:"); window.draw(text);
@@ -176,10 +225,10 @@ void Game::TextOut()
     initialY += CharacterSize;
     text.setPosition({ static_cast<float>(INFO_CORNER_X), static_cast<float>(initialY) });
     text.setString(L"   交换： 右Ctrl键"); window.draw(text);
-    initialY += 2 * CharacterSize;
-    text.setPosition({ static_cast<float>(INFO_CORNER_X), static_cast<float>(initialY) });
-    text.setString(L"自带底部缓冲功能"); window.draw(text);
     initialY += CharacterSize;
+    text.setPosition({ static_cast<float>(INFO_CORNER_X), static_cast<float>(initialY) });
+    text.setString(L"AI切换： 0"); window.draw(text);
+    initialY += 2 * CharacterSize;
     text.setPosition({ static_cast<float>(INFO_CORNER_X), static_cast<float>(initialY) });
     text.setString(L"退出： Esc键"); window.draw(text);
 }
@@ -232,6 +281,10 @@ void Game::gameInput()
                         ButtonState_Hold = Hold_Light;
                     }
 
+                if (ButtonRectAI.contains({ mouseButtonReleased->position.x, mouseButtonReleased->position.y }))
+                {
+                    aiAssistEnabled = !aiAssistEnabled;
+                }
                 if (ButtonRectLeft.contains({ mouseButtonReleased->position.x, mouseButtonReleased->position.y }))
                 {
                     imgSetNo--;
@@ -304,6 +357,10 @@ void Game::gameOverInput()
                 {
                     isGameOver = false;
                 }
+                if (ButtonRectAI.contains({ mouseButtonReleased->position.x, mouseButtonReleased->position.y }))
+                {
+                    aiAssistEnabled = !aiAssistEnabled;
+                }
             }
         }
         if (const auto* mouseMoved = event->getIf<sf::Event::MouseMoved>())
@@ -338,6 +395,36 @@ void Game::DrawButton()
     ButtonRectHold.size.x = ButtonWidth;
     ButtonRectHold.size.y = ButtonHeight;
     window.draw(sButtons);
+
+    text.setFont(font);
+    text.setCharacterSize(18);
+    text.setStyle(sf::Text::Bold);
+    text.setFillColor(sf::Color::White);
+    text.setPosition({ static_cast<float>(P1_STAGE_CORNER_X + 10), 20.0f });
+    text.setString(player1.aiEnabled ? L"玩家1 AI: 开" : L"玩家1 AI: 关");
+    window.draw(text);
+    text.setPosition({ static_cast<float>(P2_STAGE_CORNER_X + 10), 20.0f });
+    text.setString(player2.aiEnabled ? L"玩家2 AI: 开" : L"玩家2 AI: 关");
+    window.draw(text);
+
+    // AI助手开关按钮
+    sf::RectangleShape aiButtonShape({ 180.0f, 42.0f });
+    aiButtonShape.setPosition({ static_cast<float>(B_AI_CORNER_X), static_cast<float>(B_AI_CORNER_Y) });
+    aiButtonShape.setFillColor(aiAssistEnabled ? sf::Color(34, 139, 230, 220) : sf::Color(90, 90, 90, 220));
+    aiButtonShape.setOutlineThickness(2.0f);
+    aiButtonShape.setOutlineColor(sf::Color::White);
+    window.draw(aiButtonShape);
+    ButtonRectAI.position.x = B_AI_CORNER_X;
+    ButtonRectAI.position.y = B_AI_CORNER_Y;
+    ButtonRectAI.size.x = 180;
+    ButtonRectAI.size.y = 42;
+    text.setFont(font);
+    text.setCharacterSize(22);
+    text.setStyle(sf::Text::Bold);
+    text.setFillColor(sf::Color::White);
+    text.setPosition({ static_cast<float>(B_AI_CORNER_X + 18), static_cast<float>(B_AI_CORNER_Y + 8) });
+    text.setString(aiAssistEnabled ? L"AI助手: 开" : L"AI助手: 关");
+    window.draw(text);
 
     //背景素材切换
     ButtonWidth = sSwitcher.getLocalBounds().size.x;	//此处纹理就1个状态，大家可以参照前面的按钮自行添加
@@ -384,9 +471,11 @@ void Game::DrawResults()
     sGameOver.setPosition({ static_cast<float>(P2_STAGE_CORNER_X + GRIDSIZE * 1.5), 0.0 });
     window.draw(sGameOver);
 }
+
+// DrawScoreText defined earlier (keep the more complete implementation above)
+
 //ga
 float Game::simulateOneGame(float weights[6]) {
-    std::cout << "Simulation started" << std::endl;
     gameInitial();
     memcpy(player2.pdWeights, weights, 6 * sizeof(float));
     isGameBegin = true;
@@ -400,39 +489,22 @@ float Game::simulateOneGame(float weights[6]) {
     while (!player2.isGameOver) {
         frameCount++;
 
-        // 手动推进 timer
         player1.timer += 0.05f;
         player2.timer += 0.05f;
 
-        // AI 决策
         player2.AIAutoPlay();
-
-        // 执行逻辑
         player1.Logic();
         player2.Logic();
 
-        // 检查游戏结束
         isGameOver = (player1.isGameOver || player2.isGameOver);
 
-        // 每100帧输出一次状态
-        if (frameCount % 100 == 0) {
-            int blockCount = 0;
-            for (int i = 0; i < FIELD_HEIGHT; i++)
-                for (int j = 0; j < FIELD_WIDTH; j++)
-                    if (player2.Field[i][j] != 0) blockCount++;
-            std::cout << "Frame " << frameCount << ", isGameOver=" << player2.isGameOver 
-                      << ", blocks=" << blockCount << std::endl;
-        }
-
-        // 如果方块数量不再增加且 gameover 仍为 false，可能卡住，提前退出
         if (frameCount > 5000) {
-            std::cout << "Frame limit reached, forcing exit" << std::endl;
             break;
         }
     }
 
-    std::cout << "Simulation ended, score=" << player2.score << std::endl;
-    return player2.score;
+    // 适应度同时考虑分数和存活时间，避免只看短期爆分
+    return static_cast<float>(player2.score) + static_cast<float>(frameCount) * 0.1f;
 }
 //ga
 
@@ -442,17 +514,32 @@ void Game::gameLogic()
         return;
     float time = clock.getElapsedTime().asSeconds();
     clock.restart();
-    player1.timer += time;
-    player2.timer += time;
 
-    //ga
+    bool p1Lost = player1.isGameOver;
+    bool p2Lost = player2.isGameOver;
 
-    player2.AIAutoPlay();   
-    //ga
+    if (p1Lost && p2Lost)
+    {
+        isGameOver = true;
+        return;
+    }
 
-    player1.Logic();
-    player2.Logic();
-    isGameOver = (player1.isGameOver || player2.isGameOver);
+    if (!p1Lost)
+        player1.timer += time;
+    if (!p2Lost)
+        player2.timer += time;
+
+    if (!p1Lost && player1.aiEnabled)
+        player1.AIAutoPlay();
+    if (!p2Lost && player2.aiEnabled)
+        player2.AIAutoPlay();
+
+    if (!p1Lost)
+        player1.Logic();
+    if (!p2Lost)
+        player2.Logic();
+
+    isGameOver = (player1.isGameOver && player2.isGameOver);
 }
 void Game::gameDraw()
 {
@@ -471,12 +558,77 @@ void Game::gameDraw()
     window.draw(sCover);
 
     DrawButton();
-    TextOut();
+    DrawScoreText();
+
+    bool p1Lost = player1.isGameOver;
+    bool p2Lost = player2.isGameOver;
+    if ((p1Lost && !p2Lost) || (!p1Lost && p2Lost))
+    {
+        if (p1Lost)
+        {
+            // 只遮挡玩家1的游戏区域
+            sf::RectangleShape overlay({ static_cast<float>(STAGE_WIDTH * GRIDSIZE), static_cast<float>(STAGE_HEIGHT * GRIDSIZE) });
+            overlay.setPosition({ static_cast<float>(P1_STAGE_CORNER_X), static_cast<float>(P1_STAGE_CORNER_Y) });
+            overlay.setFillColor(sf::Color(0, 0, 0, 200));
+            window.draw(overlay);
+
+            text.setFont(font);
+            text.setCharacterSize(32);
+            text.setStyle(sf::Text::Bold);
+            text.setFillColor(sf::Color::White);
+            text.setPosition({ static_cast<float>(P1_STAGE_CORNER_X + 20), static_cast<float>(P1_STAGE_CORNER_Y + 140) });
+            text.setString(L"玩家1失败");
+            window.draw(text);
+
+            text.setCharacterSize(24);
+            text.setPosition({ static_cast<float>(P1_STAGE_CORNER_X + 30), static_cast<float>(P1_STAGE_CORNER_Y + 190) });
+            text.setString(L"玩家2继续");
+            window.draw(text);
+
+            text.setCharacterSize(18);
+            text.setPosition({ static_cast<float>(P1_STAGE_CORNER_X + 20), static_cast<float>(P1_STAGE_CORNER_Y + 280) });
+            text.setString(L"输赢会在双方都");
+            window.draw(text);
+
+            text.setPosition({ static_cast<float>(P1_STAGE_CORNER_X + 20), static_cast<float>(P1_STAGE_CORNER_Y + 310) });
+            text.setString(L"失败后显示");
+            window.draw(text);
+        }
+        else
+        {
+            // 只遮挡玩家2的游戏区域
+            sf::RectangleShape overlay({ static_cast<float>(STAGE_WIDTH * GRIDSIZE), static_cast<float>(STAGE_HEIGHT * GRIDSIZE) });
+            overlay.setPosition({ static_cast<float>(P2_STAGE_CORNER_X), static_cast<float>(P2_STAGE_CORNER_Y) });
+            overlay.setFillColor(sf::Color(0, 0, 0, 200));
+            window.draw(overlay);
+
+            text.setFont(font);
+            text.setCharacterSize(32);
+            text.setStyle(sf::Text::Bold);
+            text.setFillColor(sf::Color::White);
+            text.setPosition({ static_cast<float>(P2_STAGE_CORNER_X + 20), static_cast<float>(P2_STAGE_CORNER_Y + 140) });
+            text.setString(L"玩家2失败");
+            window.draw(text);
+
+            text.setCharacterSize(24);
+            text.setPosition({ static_cast<float>(P2_STAGE_CORNER_X + 30), static_cast<float>(P2_STAGE_CORNER_Y + 190) });
+            text.setString(L"玩家1继续");
+            window.draw(text);
+
+            text.setCharacterSize(18);
+            text.setPosition({ static_cast<float>(P2_STAGE_CORNER_X + 20), static_cast<float>(P2_STAGE_CORNER_Y + 280) });
+            text.setString(L"比分会在双方都");
+            window.draw(text);
+
+            text.setPosition({ static_cast<float>(P2_STAGE_CORNER_X + 20), static_cast<float>(P2_STAGE_CORNER_Y + 310) });
+            text.setString(L"失败后显示");
+            window.draw(text);
+        }
+    }
+
     DrawResults();
 
     window.display();				//把显示缓冲区的内容，显示在屏幕上。SFML采用的是双缓冲机制
-    // 只测玩家1的当前方块，放在 (5, 5) 位置，不旋转
-std::cout << "PD Score: " << player1.evaluatePD(player1.currentShapeNum, 0, 5, 5) << std::endl;
 }
 
 void Game::gameRun()
