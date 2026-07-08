@@ -240,6 +240,30 @@ src/Game.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\GameLib.dir\build.make CMakeFiles/GameLib.dir/src/Game.cpp.s
 .PHONY : src/Game.cpp.s
 
+src/GeneticAlgorithm.obj: src/GeneticAlgorithm.cpp.obj
+.PHONY : src/GeneticAlgorithm.obj
+
+# target to build an object file
+src/GeneticAlgorithm.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\GameLib.dir\build.make CMakeFiles/GameLib.dir/src/GeneticAlgorithm.cpp.obj
+.PHONY : src/GeneticAlgorithm.cpp.obj
+
+src/GeneticAlgorithm.i: src/GeneticAlgorithm.cpp.i
+.PHONY : src/GeneticAlgorithm.i
+
+# target to preprocess a source file
+src/GeneticAlgorithm.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\GameLib.dir\build.make CMakeFiles/GameLib.dir/src/GeneticAlgorithm.cpp.i
+.PHONY : src/GeneticAlgorithm.cpp.i
+
+src/GeneticAlgorithm.s: src/GeneticAlgorithm.cpp.s
+.PHONY : src/GeneticAlgorithm.s
+
+# target to generate assembly for a file
+src/GeneticAlgorithm.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\GameLib.dir\build.make CMakeFiles/GameLib.dir/src/GeneticAlgorithm.cpp.s
+.PHONY : src/GeneticAlgorithm.cpp.s
+
 src/Tetris.obj: src/Tetris.cpp.obj
 .PHONY : src/Tetris.obj
 
@@ -308,6 +332,9 @@ help:
 	@echo ... src/Game.obj
 	@echo ... src/Game.i
 	@echo ... src/Game.s
+	@echo ... src/GeneticAlgorithm.obj
+	@echo ... src/GeneticAlgorithm.i
+	@echo ... src/GeneticAlgorithm.s
 	@echo ... src/Tetris.obj
 	@echo ... src/Tetris.i
 	@echo ... src/Tetris.s

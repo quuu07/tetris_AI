@@ -98,19 +98,36 @@ CMakeFiles/GameLib.dir/src/Tetris.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/GameLib.dir/src/Tetris.cpp.s"
 	D:\practice\vscode\mingw64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S D:\sfmlgame\tetris_AI\s101cmake-sfml-tetris-main\s101cmake-sfml-tetris-main\src\Tetris.cpp -o CMakeFiles\GameLib.dir\src\Tetris.cpp.s
 
+CMakeFiles/GameLib.dir/src/GeneticAlgorithm.cpp.obj: CMakeFiles/GameLib.dir/flags.make
+CMakeFiles/GameLib.dir/src/GeneticAlgorithm.cpp.obj: CMakeFiles/GameLib.dir/includes_CXX.rsp
+CMakeFiles/GameLib.dir/src/GeneticAlgorithm.cpp.obj: D:/sfmlgame/tetris_AI/s101cmake-sfml-tetris-main/s101cmake-sfml-tetris-main/src/GeneticAlgorithm.cpp
+CMakeFiles/GameLib.dir/src/GeneticAlgorithm.cpp.obj: CMakeFiles/GameLib.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=D:\sfmlgame\tetris_AI\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/GameLib.dir/src/GeneticAlgorithm.cpp.obj"
+	D:\practice\vscode\mingw64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/GameLib.dir/src/GeneticAlgorithm.cpp.obj -MF CMakeFiles\GameLib.dir\src\GeneticAlgorithm.cpp.obj.d -o CMakeFiles\GameLib.dir\src\GeneticAlgorithm.cpp.obj -c D:\sfmlgame\tetris_AI\s101cmake-sfml-tetris-main\s101cmake-sfml-tetris-main\src\GeneticAlgorithm.cpp
+
+CMakeFiles/GameLib.dir/src/GeneticAlgorithm.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/GameLib.dir/src/GeneticAlgorithm.cpp.i"
+	D:\practice\vscode\mingw64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E D:\sfmlgame\tetris_AI\s101cmake-sfml-tetris-main\s101cmake-sfml-tetris-main\src\GeneticAlgorithm.cpp > CMakeFiles\GameLib.dir\src\GeneticAlgorithm.cpp.i
+
+CMakeFiles/GameLib.dir/src/GeneticAlgorithm.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/GameLib.dir/src/GeneticAlgorithm.cpp.s"
+	D:\practice\vscode\mingw64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S D:\sfmlgame\tetris_AI\s101cmake-sfml-tetris-main\s101cmake-sfml-tetris-main\src\GeneticAlgorithm.cpp -o CMakeFiles\GameLib.dir\src\GeneticAlgorithm.cpp.s
+
 # Object files for target GameLib
 GameLib_OBJECTS = \
 "CMakeFiles/GameLib.dir/src/Game.cpp.obj" \
-"CMakeFiles/GameLib.dir/src/Tetris.cpp.obj"
+"CMakeFiles/GameLib.dir/src/Tetris.cpp.obj" \
+"CMakeFiles/GameLib.dir/src/GeneticAlgorithm.cpp.obj"
 
 # External object files for target GameLib
 GameLib_EXTERNAL_OBJECTS =
 
 libGameLib.a: CMakeFiles/GameLib.dir/src/Game.cpp.obj
 libGameLib.a: CMakeFiles/GameLib.dir/src/Tetris.cpp.obj
+libGameLib.a: CMakeFiles/GameLib.dir/src/GeneticAlgorithm.cpp.obj
 libGameLib.a: CMakeFiles/GameLib.dir/build.make
 libGameLib.a: CMakeFiles/GameLib.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=D:\sfmlgame\tetris_AI\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Linking CXX static library libGameLib.a"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=D:\sfmlgame\tetris_AI\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Linking CXX static library libGameLib.a"
 	$(CMAKE_COMMAND) -P CMakeFiles\GameLib.dir\cmake_clean_target.cmake
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles\GameLib.dir\link.txt --verbose=$(VERBOSE)
 

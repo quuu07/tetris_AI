@@ -9,6 +9,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "D:/sfmlgame/tetris_AI/s101cmake-sfml-tetris-main/s101cmake-sfml-tetris-main/src/Game.cpp" "CMakeFiles/GameLib.dir/src/Game.cpp.obj" "gcc" "CMakeFiles/GameLib.dir/src/Game.cpp.obj.d"
+  "D:/sfmlgame/tetris_AI/s101cmake-sfml-tetris-main/s101cmake-sfml-tetris-main/src/GeneticAlgorithm.cpp" "CMakeFiles/GameLib.dir/src/GeneticAlgorithm.cpp.obj" "gcc" "CMakeFiles/GameLib.dir/src/GeneticAlgorithm.cpp.obj.d"
   "D:/sfmlgame/tetris_AI/s101cmake-sfml-tetris-main/s101cmake-sfml-tetris-main/src/Tetris.cpp" "CMakeFiles/GameLib.dir/src/Tetris.cpp.obj" "gcc" "CMakeFiles/GameLib.dir/src/Tetris.cpp.obj.d"
   )
 

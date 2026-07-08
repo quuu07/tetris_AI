@@ -8,13 +8,16 @@
  */
 
 #include "Game.h"
+//#include "GeneticAlgorithm.h"
 
 int main()
 {
+	
 	Game tetrisGame;
 	while (tetrisGame.window.isOpen())
 	{
 		tetrisGame.gameRun();
 	}
+	//runGA();   // 运行遗传算法
 	return 0;
 }

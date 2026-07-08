@@ -120,7 +120,10 @@ public:
 	void isWin();
 //pd
 	float evaluatePD(int shapeNum, int rotState, int posX, int posY);
-
+	//ga
+	void AIAutoPlay();          // AI 控制当前玩家走一步
+    bool isValidPlacement(int shapeNum, int rotState, int posX, int posY);  // 检查位置是否合法
+    //ga
     // 下面的 5 个是辅助特征计算（只读场地，不改任何东西）
     int calcLandingHeight(int shapeNum, int rotState, int posX, int posY);
     int calcRowTransitions();
@@ -128,6 +131,27 @@ public:
     int calcHoles();
     int calcWellSums();
     int calcRowsEliminated();  // 满行数
+	//ga
+	float pdWeights[6] = {
+		/*
+        //-4.500158f,   // 着陆高度
+		3.356667f,   // 着陆高度
+		10.0f,   // 消除行数
+     //3.418126f,   // 消除行数   ← 注意这里是正数！
+    -3.217888f,   // 行切换
+    -9.348695f,   // 列切换
+    -7.899265f,   // 空洞数
+    -3.385597f    // 井深总和
+*/
+	 6.92504f,     // 着陆高度
+    1.10562f,     // 消除行数
+    -1.02271f,    // 行切换
+    -9.26922f,    // 列切换
+    -1.71044f,    // 空洞数
+    -3.80692f     // 井深总和
+    };
+
+	//ga
 private:
     int holdcolorNum, holdShapeNum;
     Vector2i holdSquare[4];

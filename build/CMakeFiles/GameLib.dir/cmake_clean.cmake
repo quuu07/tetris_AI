@@ -1,6 +1,8 @@
 file(REMOVE_RECURSE
   "CMakeFiles/GameLib.dir/src/Game.cpp.obj"
   "CMakeFiles/GameLib.dir/src/Game.cpp.obj.d"
+  "CMakeFiles/GameLib.dir/src/GeneticAlgorithm.cpp.obj"
+  "CMakeFiles/GameLib.dir/src/GeneticAlgorithm.cpp.obj.d"
   "CMakeFiles/GameLib.dir/src/Tetris.cpp.obj"
   "CMakeFiles/GameLib.dir/src/Tetris.cpp.obj.d"
   "libGameLib.a"

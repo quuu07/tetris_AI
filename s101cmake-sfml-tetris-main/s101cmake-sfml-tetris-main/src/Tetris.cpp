@@ -140,6 +140,7 @@ void Tetris::Input(const std::optional<sf::Event>& event)
 
 void Tetris::traditonLogic()
 {
+    if (newShapeFlag) return;   // 如果方块已经锁定，跳过移动/下落逻辑
     //hold方块图形
     if (isHold)
     {
@@ -461,6 +462,87 @@ void Tetris::getRotatedCoords(int shapeNum, int rotState, int posX, int posY, Ve
     }
 }
 
+//ga
+    // 放在 getRotatedCoords 之后，evaluatePD 之前
+bool Tetris::isValidPlacement(int shapeNum, int rotState, int posX, int posY) {
+    Vector2i coords[4];
+    getRotatedCoords(shapeNum, rotState, posX, posY, coords);
+    for (int i = 0; i < 4; i++) {
+        int x = coords[i].x;
+        int y = coords[i].y;
+        if (x < 0 || x >= FIELD_WIDTH || y >= FIELD_HEIGHT) return false;
+        if (y < 0) continue; // 允许在顶部生成区
+        if (Field[y][x] != 0) return false;
+    }
+    return true;
+}
+
+void Tetris::AIAutoPlay() {
+    if (isGameOver || animationFlag || currentShapeNum < 0) return;
+
+    float bestScore = -1e9f;
+    int bestX = 0, bestY = 0, bestRot = 0;
+
+    int maxRot = (currentShapeNum == shapeO) ? 1 : 4;
+    for (int rot = 0; rot < maxRot; rot++) {
+        for (int x = -2; x < FIELD_WIDTH; x++) {
+            int y = 0;
+            while (isValidPlacement(currentShapeNum, rot, x, y + 1)) y++;
+            if (!isValidPlacement(currentShapeNum, rot, x, y)) continue;
+
+            // 先备份场地
+            int backup[FIELD_HEIGHT][FIELD_WIDTH];
+            memcpy(backup, Field, sizeof(Field));
+
+            // 临时放置方块
+            Vector2i coords[4];
+            getRotatedCoords(currentShapeNum, rot, x, y, coords);
+            for (int i = 0; i < 4; i++) {
+                int cx = coords[i].x, cy = coords[i].y;
+                if (cy >= 0 && cy < FIELD_HEIGHT && cx >= 0 && cx < FIELD_WIDTH) {
+                    Field[cy][cx] = 1;
+                }
+            }
+            // 计算消除行数
+            int lines = calcRowsEliminated();
+            // 恢复场地
+            memcpy(Field, backup, sizeof(Field));
+
+            // 计算 PD 分数
+            float score = evaluatePD(currentShapeNum, rot, x, y);
+
+            // 如果该位置能消行，给予巨大奖励
+            if (lines > 0) {
+                score += 10000.0f * lines;   // 强力优先消行
+            }
+
+            if (score > bestScore) {
+                bestScore = score;
+                bestX = x;
+                bestY = y;
+                bestRot = rot;
+            }
+        }
+    }
+
+    // 2. 瞬移到目标位置（直接放入 Field）
+    Vector2i target[4];
+    getRotatedCoords(currentShapeNum, bestRot, bestX, bestY, target);
+    for (int i = 0; i < 4; i++) {
+        int y = target[i].y;
+        int x = target[i].x;
+        if (y >= 0 && y < FIELD_HEIGHT && x >= 0 && x < FIELD_WIDTH) {
+            Field[y][x] = currentColorNum;
+        }
+    }
+
+    // 3. 标记需要生成新方块（让 Logic 处理消行和后续）
+    newShapeFlag = true;
+    // 注意：不要调用 newShapeFunc，让 Logic 自己处理
+}
+
+//ga
+
 int Tetris::calcLandingHeight(int shapeNum, int rotState, int posX, int posY) {
     // 从 posY 开始，不断下移直到碰撞
     int y = posY;
@@ -583,13 +665,15 @@ float Tetris::evaluatePD(int shapeNum, int rotState, int posX, int posY) {
     memcpy(Field, backupField, sizeof(Field));
 
     // 5. 套用 Pierre Dellacherie 的经典权重
+    //ga
     float score = 
-        -4.500158f * landingHeight +
-         3.418126f * rowsEliminated +
-        -3.217888f * rowTrans +
-        -9.348695f * colTrans +
-        -7.899265f * holes +
-        -3.385597f * wellSums;
+        pdWeights[0] * landingHeight +
+        pdWeights[1] * rowsEliminated +
+        pdWeights[2] * rowTrans +
+        pdWeights[3] * colTrans +
+        pdWeights[4] * holes +
+        pdWeights[5] * wellSums;
+    //ga
 
     return score;
 }

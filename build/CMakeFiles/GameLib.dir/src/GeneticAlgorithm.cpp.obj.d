@@ -1,5 +1,6 @@
-CMakeFiles/GameLib.dir/src/Game.cpp.obj: \
- D:\sfmlgame\tetris_AI\s101cmake-sfml-tetris-main\s101cmake-sfml-tetris-main\src\Game.cpp \
+CMakeFiles/GameLib.dir/src/GeneticAlgorithm.cpp.obj: \
+ D:\sfmlgame\tetris_AI\s101cmake-sfml-tetris-main\s101cmake-sfml-tetris-main\src\GeneticAlgorithm.cpp \
+ D:/sfmlgame/tetris_AI/s101cmake-sfml-tetris-main/s101cmake-sfml-tetris-main/include/GeneticAlgorithm.h \
  D:/sfmlgame/tetris_AI/s101cmake-sfml-tetris-main/s101cmake-sfml-tetris-main/include/Game.h \
  D:/sfmlgame/SFML-3.0.0-windows-gcc-14.2.0-mingw-64-bit/SFML-3.0.0/include/SFML/Graphics.hpp \
  D:/sfmlgame/SFML-3.0.0-windows-gcc-14.2.0-mingw-64-bit/SFML-3.0.0/include/SFML/Graphics/BlendMode.hpp \
@@ -311,6 +312,31 @@ CMakeFiles/GameLib.dir/src/Game.cpp.obj: \
  D:/sfmlgame/SFML-3.0.0-windows-gcc-14.2.0-mingw-64-bit/SFML-3.0.0/include/SFML/Audio/SoundFileFactory.inl \
  D:/practice/vscode/mingw64/include/c++/14.2.0/iostream \
  D:/sfmlgame/tetris_AI/s101cmake-sfml-tetris-main/s101cmake-sfml-tetris-main/include/Tetris.h \
- D:/practice/vscode/mingw64/include/c++/14.2.0/cstring \
- D:/practice/vscode/mingw64/x86_64-w64-mingw32/include/string.h \
- D:/practice/vscode/mingw64/x86_64-w64-mingw32/include/sec_api/string_s.h
+ D:/practice/vscode/mingw64/include/c++/14.2.0/random \
+ D:/practice/vscode/mingw64/include/c++/14.2.0/cmath \
+ D:/practice/vscode/mingw64/x86_64-w64-mingw32/include/math.h \
+ D:/practice/vscode/mingw64/include/c++/14.2.0/bits/specfun.h \
+ D:/practice/vscode/mingw64/include/c++/14.2.0/tr1/gamma.tcc \
+ D:/practice/vscode/mingw64/include/c++/14.2.0/tr1/special_function_util.h \
+ D:/practice/vscode/mingw64/include/c++/14.2.0/tr1/bessel_function.tcc \
+ D:/practice/vscode/mingw64/include/c++/14.2.0/tr1/beta_function.tcc \
+ D:/practice/vscode/mingw64/include/c++/14.2.0/tr1/ell_integral.tcc \
+ D:/practice/vscode/mingw64/include/c++/14.2.0/tr1/exp_integral.tcc \
+ D:/practice/vscode/mingw64/include/c++/14.2.0/tr1/hypergeometric.tcc \
+ D:/practice/vscode/mingw64/include/c++/14.2.0/tr1/legendre_function.tcc \
+ D:/practice/vscode/mingw64/include/c++/14.2.0/tr1/modified_bessel_func.tcc \
+ D:/practice/vscode/mingw64/include/c++/14.2.0/tr1/poly_hermite.tcc \
+ D:/practice/vscode/mingw64/include/c++/14.2.0/tr1/poly_laguerre.tcc \
+ D:/practice/vscode/mingw64/include/c++/14.2.0/tr1/riemann_zeta.tcc \
+ D:/practice/vscode/mingw64/include/c++/14.2.0/bits/random.h \
+ D:/practice/vscode/mingw64/include/c++/14.2.0/bits/uniform_int_dist.h \
+ D:/practice/vscode/mingw64/include/c++/14.2.0/x86_64-w64-mingw32/bits/opt_random.h \
+ D:/practice/vscode/mingw64/include/c++/14.2.0/bits/random.tcc \
+ D:/practice/vscode/mingw64/include/c++/14.2.0/numeric \
+ D:/practice/vscode/mingw64/include/c++/14.2.0/bits/stl_numeric.h \
+ D:/practice/vscode/mingw64/include/c++/14.2.0/pstl/glue_numeric_defs.h \
+ D:/practice/vscode/mingw64/include/c++/14.2.0/algorithm \
+ D:/practice/vscode/mingw64/include/c++/14.2.0/bits/stl_algo.h \
+ D:/practice/vscode/mingw64/include/c++/14.2.0/bits/algorithmfwd.h \
+ D:/practice/vscode/mingw64/include/c++/14.2.0/bits/stl_heap.h \
+ D:/practice/vscode/mingw64/include/c++/14.2.0/pstl/glue_algorithm_defs.h

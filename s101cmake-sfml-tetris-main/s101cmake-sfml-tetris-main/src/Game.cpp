@@ -1,18 +1,23 @@
 #include "Game.h"
-
+#include <cstring>
+//bool headless
 Game::Game()
-    :tTiles(), tBackground(), tButtons(), tSwitcher(), tFrame(), tCover(), tScore(), tGameOver(),
+    :headless(false), tTiles(), tBackground(), tButtons(), tSwitcher(), tFrame(), tCover(), tScore(), tGameOver(),
     sTiles(tTiles), sBackground(tBackground), sButtons(tButtons), sSwitcher(tSwitcher), sFrame(tFrame), sCover(tCover), sScore(tScore), sGameOver(tGameOver),
     font(), text(font),
     soundWin(sbWin), soundBoom(sbBoom)
 {
-    Window_width = 1350;
-    Window_height = 1000;
-    ButtonState_Start = Start_Dark;
-    imgSetNo = 1;
-    //设定窗口属性，窗口禁止缩放
-    uint8_t WindowStyle = sf::Style::Close | sf::Style::Titlebar;
-    window.create(sf::VideoMode({ Window_width, Window_height }), L"Tetris by 李仕", WindowStyle);
+    if (!headless) {
+        Window_width = 1350;
+        Window_height = 1000;
+        ButtonState_Start = Start_Dark;
+        imgSetNo = 1;
+        uint8_t WindowStyle = sf::Style::Close | sf::Style::Titlebar;
+        window.create(sf::VideoMode({ Window_width, Window_height }), L"Tetris by 李仕", WindowStyle);
+        // 设置窗口位置等...
+        //window.setFramerateLimit(15);  // 可以挪到 gameInitial 里，这里只是示例
+    }
+
 
     //设置窗口在桌面上的位置	
     sf::VideoMode mode = sf::VideoMode::getDesktopMode();//查询桌面的属性
@@ -27,8 +32,10 @@ Game::~Game()
 
 void Game::gameInitial()
 {
-    window.setFramerateLimit(15);	//每秒设置目标帧数
-    LoadMediaData();				//先加载素材
+    if (!headless) {
+        window.setFramerateLimit(15);
+    }
+    LoadMediaData();
 
     isGameBegin = false;
     isGameHold = false;
@@ -43,6 +50,7 @@ void Game::gameInitial()
 }
 void Game::LoadMediaData()
 {
+    imgSetNo = 1;
     std::stringstream ss;
     ss << "./data/images/bg" << imgSetNo << ".jpg";//"data/images/BK01.png"
 
@@ -356,21 +364,78 @@ void Game::DrawButton()
 }
 void Game::DrawResults()
 {
-    int ButtonWidth, ButtonHeight;
-    ButtonWidth = 250;// sGameOver.getLocalBounds().width / 2;
-    ButtonHeight = sGameOver.getLocalBounds().size.y;
+    // 如果游戏没有结束，直接返回
+    if (!isGameOver) return;
 
-    if (player1.isGameOver || player2.isGameOver)
-    {
-        sGameOver.setTextureRect(IntRect({ player1.isGameOver * ButtonWidth, 0 }, { ButtonWidth, ButtonHeight }));//读取按钮的纹理区域
-        sGameOver.setPosition({ static_cast<float>(P1_STAGE_CORNER_X + GRIDSIZE * 1.5), 0.0 });								//设置按钮的位置坐标
-        window.draw(sGameOver);
+    int ButtonWidth = 250;
+    int ButtonHeight = sGameOver.getLocalBounds().size.y;
 
-        sGameOver.setTextureRect(IntRect({ player2.isGameOver * ButtonWidth, 0 }, { ButtonWidth, ButtonHeight }));//读取按钮的纹理区域
-        sGameOver.setPosition({ static_cast<float>(P2_STAGE_CORNER_X + GRIDSIZE * 1.5), 0.0 });								//设置按钮的位置坐标
-        window.draw(sGameOver);
-    }
+    // 决定谁赢了：分数高者赢，平局则同时结束？
+    bool player1Wins = (player1.score > player2.score);
+    bool player2Wins = (player2.score > player1.score);
+
+    // 显示玩家1的结果
+    sGameOver.setTextureRect(IntRect({ player1Wins ? 0 : ButtonWidth, 0 }, { ButtonWidth, ButtonHeight }));
+    sGameOver.setPosition({ static_cast<float>(P1_STAGE_CORNER_X + GRIDSIZE * 1.5), 0.0 });
+    window.draw(sGameOver);
+
+    // 显示玩家2的结果
+    sGameOver.setTextureRect(IntRect({ player2Wins ? 0 : ButtonWidth, 0 }, { ButtonWidth, ButtonHeight }));
+    sGameOver.setPosition({ static_cast<float>(P2_STAGE_CORNER_X + GRIDSIZE * 1.5), 0.0 });
+    window.draw(sGameOver);
 }
+//ga
+float Game::simulateOneGame(float weights[6]) {
+    std::cout << "Simulation started" << std::endl;
+    gameInitial();
+    memcpy(player2.pdWeights, weights, 6 * sizeof(float));
+    isGameBegin = true;
+    isGameHold = false;
+
+    // 强制关闭动画，避免阻塞
+    player1.animationFlag = false;
+    player2.animationFlag = false;
+
+    int frameCount = 0;
+    while (!player2.isGameOver) {
+        frameCount++;
+
+        // 手动推进 timer
+        player1.timer += 0.05f;
+        player2.timer += 0.05f;
+
+        // AI 决策
+        player2.AIAutoPlay();
+
+        // 执行逻辑
+        player1.Logic();
+        player2.Logic();
+
+        // 检查游戏结束
+        isGameOver = (player1.isGameOver || player2.isGameOver);
+
+        // 每100帧输出一次状态
+        if (frameCount % 100 == 0) {
+            int blockCount = 0;
+            for (int i = 0; i < FIELD_HEIGHT; i++)
+                for (int j = 0; j < FIELD_WIDTH; j++)
+                    if (player2.Field[i][j] != 0) blockCount++;
+            std::cout << "Frame " << frameCount << ", isGameOver=" << player2.isGameOver 
+                      << ", blocks=" << blockCount << std::endl;
+        }
+
+        // 如果方块数量不再增加且 gameover 仍为 false，可能卡住，提前退出
+        if (frameCount > 5000) {
+            std::cout << "Frame limit reached, forcing exit" << std::endl;
+            break;
+        }
+    }
+
+    std::cout << "Simulation ended, score=" << player2.score << std::endl;
+    return player2.score;
+}
+//ga
+
 void Game::gameLogic()
 {
     if (isGameHold == true)
@@ -379,6 +444,11 @@ void Game::gameLogic()
     clock.restart();
     player1.timer += time;
     player2.timer += time;
+
+    //ga
+
+    player2.AIAutoPlay();   
+    //ga
 
     player1.Logic();
     player2.Logic();

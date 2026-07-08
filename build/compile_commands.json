@@ -13,6 +13,12 @@
 },
 {
   "directory": "D:/sfmlgame/tetris_AI/build",
+  "command": "D:\\practice\\vscode\\mingw64\\bin\\g++.exe -DSFML_STATIC @CMakeFiles/GameLib.dir/includes_CXX.rsp -g -o CMakeFiles\\GameLib.dir\\src\\GeneticAlgorithm.cpp.obj -c D:\\sfmlgame\\tetris_AI\\s101cmake-sfml-tetris-main\\s101cmake-sfml-tetris-main\\src\\GeneticAlgorithm.cpp",
+  "file": "D:/sfmlgame/tetris_AI/s101cmake-sfml-tetris-main/s101cmake-sfml-tetris-main/src/GeneticAlgorithm.cpp",
+  "output": "CMakeFiles/GameLib.dir/src/GeneticAlgorithm.cpp.obj"
+},
+{
+  "directory": "D:/sfmlgame/tetris_AI/build",
   "command": "D:\\practice\\vscode\\mingw64\\bin\\g++.exe -DSFML_STATIC @CMakeFiles/main.dir/includes_CXX.rsp -g -o CMakeFiles\\main.dir\\src\\main.cpp.obj -c D:\\sfmlgame\\tetris_AI\\s101cmake-sfml-tetris-main\\s101cmake-sfml-tetris-main\\src\\main.cpp",
   "file": "D:/sfmlgame/tetris_AI/s101cmake-sfml-tetris-main/s101cmake-sfml-tetris-main/src/main.cpp",
   "output": "CMakeFiles/main.dir/src/main.cpp.obj"

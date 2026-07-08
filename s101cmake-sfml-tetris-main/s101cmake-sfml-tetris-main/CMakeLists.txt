@@ -32,6 +32,7 @@ find_package(SFML 3.0 COMPONENTS Graphics Window System Audio Network REQUIRED)
 add_library(GameLib
     src/Game.cpp
     src/Tetris.cpp
+    src/GeneticAlgorithm.cpp
 )
 
 # 头文件目录

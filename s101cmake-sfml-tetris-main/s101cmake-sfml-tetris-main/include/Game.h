@@ -57,7 +57,10 @@ public:
 	Music bkMusic;
 	// A Clock starts counting as soon as it's created
 	sf::Clock gameClock, mouseClickTimer;
-
+    //ga
+	Game(bool headless); 
+	float simulateOneGame(float weights[6]);
+    //ga
 	void gameInitial();
 	void LoadMediaData();
 	void TextOut();
@@ -70,5 +73,9 @@ public:
 
 	void DrawButton();
 	void DrawResults();
+	//ga
+	private:
+    bool headless;                 // 标记是否无窗口模式
+	//ga
 };
 
